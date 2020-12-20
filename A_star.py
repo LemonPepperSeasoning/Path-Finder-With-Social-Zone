@@ -17,7 +17,7 @@ def a_star(start, goal, adjacencyList, listOfObstacle):
     foundGoal = False
     while (not foundGoal):
         # print (justVisted.position)
-        if (justVisted == goal):
+        if (justVisted.position == goal.position):
             foundGoal = True
             return returnPath(justVisted)
                  
@@ -30,27 +30,33 @@ def a_star(start, goal, adjacencyList, listOfObstacle):
             if not (i in adjacencyList):
                 continue
             
-            if ( i in stack.list ):
-                i.updateWeight(justVisted)
-                stack.list.remove(i)
-                stack.push(i)
-            elif (checkValidPath(i,justVisted,listOfObstacle)):
+            if not checkValidPath(i,justVisted,listOfObstacle):
+                continue
+            
+            if i in stack.list :
+                if ( i.updateWeight(justVisted) ):
+                    stack.list.remove(i)
+                    stack.push(i)
+            else:
+                weight = ( (justVisted.position[0]-i.position[0])**2+(justVisted.position[1]-i.position[1])**2)*0.001
+                
                 i.parent = justVisted
-                i.totalWeight = i.cost + justVisted.totalWeight
+                i.totalWeight = i.cost + justVisted.totalWeight + weight
                 stack.push(i)
         
         parent = justVisted
         visted.append(justVisted)
         
+        stack.print()
         justVisted = stack.pop()
         
-        while not checkValidPath(parent,justVisted,listOfObstacle):
-            justVisted = stack.pop()
+        # while not checkValidPath(parent,justVisted,listOfObstacle):
+        #     justVisted = stack.pop()
+        
         # print ("{}, {}  : {}".format(justVisted.position,parent.position, checkValidPath(parent,justVisted,listOfObstacle)) ) 
         
         # UNCOMMEND THIS LINE IF YOU JUST WANT TO SEE THE PATH
         # Having this next line will show the explored node.
-        
         # justVisted.parent = parent
 
 def returnPath(node):
@@ -81,9 +87,7 @@ def checkIntersect ( x1, y1, x2, y2):
 
 
 def checkIntersect_V2 ( x1, y1, x2, y2):
-    
     # y = a x + b
-    
     a1 = (x1.position[0] - y1.position[0]) / (x1.position[1] - y1.position[1])
     b1 = x1.position[1] - a1 * x1.position[0]
     

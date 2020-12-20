@@ -12,16 +12,19 @@ from A_star import a_star
 import timeit
 
 def main():
-    start = Node(position=[0,0])
+    with open('test.txt','w') as file:
+            file.write("==================\n")
+            
+    start = Node(position=[-20,30])
 
     end = Node(position=[80,80])
 
-    kevin = Person(x=10,y=30,velocity=0,direction=0)
+    kevin = Person(x=30,y=50,velocity=0,direction=0)
     
     adjacencyList, listOfShape = createAdjacencyList_new( nodes =[start,end], people=[kevin])
              
     for i,j in adjacencyList.items():
-        i.totalWeight += ((abs(end.position[0]-i.position[0])+abs(end.position[1]-i.position[1]))*0.001)
+        i.cost += ( (end.position[0]-i.position[0])**2+(end.position[1]-i.position[1])**2) *0.001
     
     listOfPath = a_star( start, end ,adjacencyList, listOfShape)
     
@@ -74,6 +77,7 @@ def createAdjacencyList_new(nodes, people):
 # checkValidPath(i, j , listOfShape)
 
 if __name__ == "__main__":
+
     startTime = timeit.default_timer()
 
     main()

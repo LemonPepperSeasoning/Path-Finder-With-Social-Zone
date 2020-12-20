@@ -16,9 +16,8 @@ class Stack:
         return self.list.pop(0)
         
     def print(self):
-        print ("uncomment the method")
-        # with open('test.txt','a') as file:
-        #     file.write("==================\n")
-        #     for i in self.list:
-        #         file.write("pos : {}, weight : {}".format(i.position,i.totalWeight))
-        #     file.write("\n")
+        with open('test.txt','a') as file:
+            file.write("==================\n")
+            for i in self.list:
+                file.write("__pos : {}, weight : {} ".format(i.position,i.totalWeight))
+            file.write("\n")
