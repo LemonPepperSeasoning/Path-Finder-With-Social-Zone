@@ -14,6 +14,8 @@ class Node:
         return hash((self.position[0],self.position[1]))
     
     def updateWeight(self, parent):
+        # When this is called, we also need to update the stack. 
+        # (update the order.)
         if ( parent.totalWeight + self.cost < self.totalWeight ):
             self.parent = parent
             self.totalWeight = parent.totalWeight +self.cost
