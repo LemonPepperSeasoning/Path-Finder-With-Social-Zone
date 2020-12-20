@@ -32,6 +32,8 @@ def a_star(start, goal, adjacencyList, listOfObstacle):
             
             if ( i in stack.list ):
                 i.updateWeight(justVisted)
+                stack.list.remove(i)
+                stack.push(i)
             elif (checkValidPath(i,justVisted,listOfObstacle)):
                 i.parent = justVisted
                 i.totalWeight = i.cost + justVisted.totalWeight
