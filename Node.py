@@ -16,6 +16,7 @@ class Node:
     
     # if weight does get updated return TRUE
     # else return false
+    '''
     def updateWeight(self, parent):
         # When this is called, we also need to update the stack. 
         # (update the order.)
@@ -27,3 +28,6 @@ class Node:
             self.totalWeight = parent.totalWeight + self.cost + weight
             return True
         return False
+    '''
+    
+    

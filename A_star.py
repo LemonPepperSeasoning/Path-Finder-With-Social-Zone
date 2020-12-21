@@ -1,6 +1,13 @@
 from Stack import Stack
 from shapely.geometry import Point, Polygon, LineString
+from Edge import Edge
 
+from myHelper import doIntersect
+
+'''
+need to add loop counter
+If no path is found, this current version will run forever
+'''
 def a_star(start, goal, adjacencyList, listOfObstacle):
     visted = []
     
@@ -30,34 +37,31 @@ def a_star(start, goal, adjacencyList, listOfObstacle):
             if not (i in adjacencyList):
                 continue
             
-            if not checkValidPath(i,justVisted,listOfObstacle):
-                continue
-            
-            if i in stack.list :
-                if ( i.updateWeight(justVisted) ):
-                    stack.list.remove(i)
-                    stack.push(i)
-            else:
-                weight = ( (justVisted.position[0]-i.position[0])**2+(justVisted.position[1]-i.position[1])**2)*0.001
-                
-                i.parent = justVisted
-                i.totalWeight = i.cost + justVisted.totalWeight + weight
-                stack.push(i)
+            # stack.pushEdge(Edge(justVisted,i))
+            stack.push_v2(Edge(justVisted,i))
         
         parent = justVisted
         visted.append(justVisted)
         
-        stack.print()
-        justVisted = stack.pop()
-        
-        # while not checkValidPath(parent,justVisted,listOfObstacle):
-        #     justVisted = stack.pop()
+        loop = True
+        currentPath = stack.pop()
+        while loop:
+            if ( currentPath.end in visted):
+                currentPath = stack.pop()
+            elif not checkValidPath(currentPath.start,currentPath.end,listOfObstacle):
+                currentPath = stack.pop()
+            else:
+                loop = False
+                
+        justVisted = currentPath.end
+        # currentPath.end.parent = currentPath.start
         
         # print ("{}, {}  : {}".format(justVisted.position,parent.position, checkValidPath(parent,justVisted,listOfObstacle)) ) 
         
         # UNCOMMEND THIS LINE IF YOU JUST WANT TO SEE THE PATH
         # Having this next line will show the explored node.
-        # justVisted.parent = parent
+        
+        justVisted.parent = parent
 
 def returnPath(node):
     path = []
@@ -72,9 +76,10 @@ def checkValidPath(x, y ,obstacles):
     for obstacle in obstacles:
         
         for i in range(0,len(obstacle)-1):
-            if (checkIntersect(x,y,obstacle[i],obstacle[i+1])):
-                return False
-            
+            if (doIntersect(x,y,obstacle[i],obstacle[i+1])):
+
+            # if (checkIntersect(x,y,obstacle[i],obstacle[i+1])):
+                return False       
     return True
 
 # Line 1 = x1 to y1
