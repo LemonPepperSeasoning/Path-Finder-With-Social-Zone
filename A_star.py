@@ -38,10 +38,12 @@ def a_star(start, goal, adjacencyList, listOfObstacle):
                 continue
             
             # stack.pushEdge(Edge(justVisted,i))
-            stack.push_v2(Edge(justVisted,i))
+            stack.push_v2( Edge(justVisted,i) )
         
         parent = justVisted
         visted.append(justVisted)
+        
+        stack.print()
         
         loop = True
         currentPath = stack.pop()
@@ -52,16 +54,18 @@ def a_star(start, goal, adjacencyList, listOfObstacle):
                 currentPath = stack.pop()
             else:
                 loop = False
-                
+        
+        # print ("from : {} ~ {} ".format(currentPath.start.position,currentPath.end.position))
         justVisted = currentPath.end
-        # currentPath.end.parent = currentPath.start
+        currentPath.end.parent = currentPath.start
+        currentPath.end.updateWeight(currentPath.start)
         
         # print ("{}, {}  : {}".format(justVisted.position,parent.position, checkValidPath(parent,justVisted,listOfObstacle)) ) 
         
         # UNCOMMEND THIS LINE IF YOU JUST WANT TO SEE THE PATH
         # Having this next line will show the explored node.
         
-        justVisted.parent = parent
+        # justVisted.parent = parent
 
 def returnPath(node):
     path = []

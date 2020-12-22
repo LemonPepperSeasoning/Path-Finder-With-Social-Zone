@@ -37,10 +37,20 @@ class Stack:
     def pop(self):
         return self.list.pop(0)
         
+    # def print(self):
+    #     # print("stack.print() is called")
+    #     with open('test.txt','a') as file:
+    #         file.write("==================\n")
+    #         for i in self.list:
+    #             file.write("__pos : {} ~ {}, weight : {} ".format(i.start.position,i.end.position,i.weight))
+    #         file.write("\n")
+    
     def print(self):
-        print("stack.print() is called")
-        # with open('test.txt','a') as file:
-        #     file.write("==================\n")
-        #     for i in self.list:
-        #         file.write("__pos : {}, weight : {} ".format(i.position,i.totalWeight))
-        #     file.write("\n")
+        # print("stack.print() is called")
+        with open('test.txt','a') as file:
+            file.write("==================\n")
+            for i in self.list:
+                if i.end.position[0] == 180:
+                    file.write("__pos : {} ~ {}, weight : {} ".format(i.start.position,i.end.position,i.weight))
+                    file.write("\n")
+

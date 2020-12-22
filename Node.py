@@ -29,5 +29,12 @@ class Node:
             return True
         return False
     '''
-    
+    def updateWeight(self, parent):
+        # When this is called, we also need to update the stack. 
+        # (update the order.)
+        
+        weight = ( (parent.position[0]-self.position[0])**2+(parent.position[1]- self.position[1])**2)*0.001
+        self.totalWeight = parent.totalWeight + self.cost + weight
+        return
+
     

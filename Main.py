@@ -17,9 +17,11 @@ python3 -m cProfile -s cumtime main.py
 
 """
 def main():
+    with open('test.txt','w') as file:
+            file.write("==================\n")
     start = Node(position=[0,27])
 
-    end = Node(position=[150,150])
+    end = Node(position=[180,80])
 
     kevin = Person(x=30,y=50,velocity=0,direction=0)
     john = Person(x=10,y=90,velocity=0,direction=0)
@@ -33,7 +35,7 @@ def main():
     
     listOfPath = a_star( start, end ,adjacencyList, listOfShape)
     
-    # plot(listOfPath,adjacencyList)
+    plot(listOfPath,adjacencyList)
       
      
 def plot(listOfPath,adjacencyList):
