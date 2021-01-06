@@ -88,22 +88,23 @@ def checkValidPath(x, y ,obstacles):
 
 # Line 1 = x1 to y1
 # Line 2 = x2 to y2
-def checkIntersect ( x1, y1, x2, y2):
 
-    line1 = LineString([(x1.position[0],x1.position[1]),(y1.position[0],y1.position[1])])
-    line2 = LineString([(x2.position[0],x2.position[1]),(y2.position[0],y2.position[1])])
-    return (line1.intersects(line2))
+# def checkIntersect ( x1, y1, x2, y2):
+
+#     line1 = LineString([(x1.position[0],x1.position[1]),(y1.position[0],y1.position[1])])
+#     line2 = LineString([(x2.position[0],x2.position[1]),(y2.position[0],y2.position[1])])
+#     return (line1.intersects(line2))
 
 
-def checkIntersect_V2 ( x1, y1, x2, y2):
-    # y = a x + b
-    a1 = (x1.position[0] - y1.position[0]) / (x1.position[1] - y1.position[1])
-    b1 = x1.position[1] - a1 * x1.position[0]
+# def checkIntersect_V2 ( x1, y1, x2, y2):
+#     # y = a x + b
+#     a1 = (x1.position[0] - y1.position[0]) / (x1.position[1] - y1.position[1])
+#     b1 = x1.position[1] - a1 * x1.position[0]
     
-    a2 = (x2.position[0] - y2.position[0]) / (x2.position[1] - y2.position[1])
-    b2 = x2.position[1] - a2 * x2.position[0]
+#     a2 = (x2.position[0] - y2.position[0]) / (x2.position[1] - y2.position[1])
+#     b2 = x2.position[1] - a2 * x2.position[0]
     
-    if (a1 == a2):
-        #Its parrarell
-        return False
+#     if (a1 == a2):
+#         #Its parrarell
+#         return False
     

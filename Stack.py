@@ -50,7 +50,6 @@ class Stack:
         with open('test.txt','a') as file:
             file.write("==================\n")
             for i in self.list:
-                if i.end.position[0] == 180:
-                    file.write("__pos : {} ~ {}, weight : {} ".format(i.start.position,i.end.position,i.weight))
-                    file.write("\n")
+                file.write("__pos : {} ~ {}, weight : {} ".format(i.start.position,i.end.position,i.weight))
+                file.write("\n")
 

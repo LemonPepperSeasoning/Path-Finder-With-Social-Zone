@@ -11,6 +11,8 @@ from A_star import a_star
 
 import timeit
 
+from CalculateWeight import calculateWeight
+from A_star import checkValidPath
 """
 
 python3 -m cProfile -s cumtime main.py 
@@ -18,10 +20,11 @@ python3 -m cProfile -s cumtime main.py
 """
 def main():
     with open('test.txt','w') as file:
-            file.write("==================\n")
+        file.write("==================\n")
+        
     start = Node(position=[0,27])
 
-    end = Node(position=[180,80])
+    end = Node(position=[150,150])
 
     kevin = Person(x=30,y=50,velocity=0,direction=0)
     john = Person(x=10,y=90,velocity=0,direction=0)
@@ -31,13 +34,31 @@ def main():
     adjacencyList, listOfShape = createAdjacencyList_new( nodes =[start,end], people=[kevin,john,sam,mike])
              
     for i,j in adjacencyList.items():
-        i.cost += ( (end.position[0]-i.position[0])**2+(end.position[1]-i.position[1])**2) *0.001
+        i.cost += calculateWeight(end,i)
     
+    # plotAllPath(adjacencyList, listOfShape)
+    
+
     listOfPath = a_star( start, end ,adjacencyList, listOfShape)
-    
     plot(listOfPath,adjacencyList)
       
-     
+def plotAllPath(adjacencyList, listOfShape):
+    x_values = []
+    y_values = []
+    
+    for x,j in adjacencyList.items():
+        x_values.append(x.position[0])
+        y_values.append(x.position[1])
+        
+        for y in j:
+            if (checkValidPath(x,y,listOfShape)):
+                plt.plot( [ x.position[0],y.position[0] ],[ x.position[1],y.position[1] ],'k-')
+    
+    plt.scatter(x_values, y_values, s=2)
+
+    plt.show()
+    
+   
 def plot(listOfPath,adjacencyList):
     x_values = []
     y_values = []

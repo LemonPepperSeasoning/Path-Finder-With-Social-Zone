@@ -16,7 +16,7 @@ class Person:
         
         circle = Point(self.x, self.y).buffer(1)  # type(circle)=polygon
         
-        layer1Weight = 10
+        layer1Weight = 100
         count = 0
         layer1 = shapely.affinity.scale(circle, 10, 10)# type(ellipse)=polygo
         for i,j in list(layer1.exterior.coords):
@@ -27,7 +27,7 @@ class Person:
         
         nodes1 = []
         
-        layer2Weight = 20
+        layer2Weight = 200
         count = 0
         layer2 = shapely.affinity.scale(circle, 20, 20)
         for i,j in list(layer2.exterior.coords):
@@ -38,7 +38,7 @@ class Person:
         
         nodes2 = []
         
-        layer3Weight = 40
+        layer3Weight = 400
         count = 0
         layer3 = shapely.affinity.scale(circle, 30, 30)
         for i,j in list(layer3.exterior.coords):
