@@ -8,4 +8,4 @@ def calculateWeight(x,y):
     y1 = y.position[0] / 200
     y2 = y.position[1] / 200
 
-    return ( (x1-y1)**2+(x2-y2)**2 ) *0.001
+    return ( (x1-y1)**2+(x2-y2)**2 ) **4 *0.001

@@ -9,7 +9,7 @@ from Node import Node
 from Person import Person
 from A_star import a_star
 
-import timeit
+from time import time
 
 from CalculateWeight import calculateWeight
 from A_star import checkValidPath
@@ -18,6 +18,16 @@ from A_star import checkValidPath
 python3 -m cProfile -s cumtime main.py 
 
 """
+
+def timer(func):
+    def f():
+        startTime =time()
+        func()
+        stop = time()
+        print ("Time elapsed : ", stop - startTime)
+    return f
+
+@timer
 def main():
     with open('test.txt','w') as file:
         file.write("==================\n")
@@ -40,7 +50,7 @@ def main():
     
 
     listOfPath = a_star( start, end ,adjacencyList, listOfShape)
-    plot(listOfPath,adjacencyList)
+    # plot(listOfPath,adjacencyList)
       
 def plotAllPath(adjacencyList, listOfShape):
     x_values = []
@@ -105,14 +115,9 @@ def createAdjacencyList_new(nodes, people):
     return adjacencyList, listOfShape
 
 # checkValidPath(i, j , listOfShape)
- 
 
 if __name__ == "__main__":
-
-    startTime = timeit.default_timer()
-
     main()
     
-    stop = timeit.default_timer()
-    print('Time: ', stop - startTime)  
+
 
