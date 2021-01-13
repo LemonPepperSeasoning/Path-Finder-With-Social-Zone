@@ -43,7 +43,8 @@ def a_star(start, goal, adjacencyList, listOfObstacle):
         parent = justVisted
         visted.append(justVisted)
         
-        stack.print()
+        # Use this to print out the stack, to see the weighting of each edge. 
+        # stack.print()
         
         loop = True
         currentPath = stack.pop()
