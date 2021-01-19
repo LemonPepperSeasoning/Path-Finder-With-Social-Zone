@@ -128,8 +128,6 @@ def vels(speed, turn):
 
 if __name__=="__main__":
     
-    listOfPath = main()
-
     rospy.init_node('Social_Navigation_twist')
 
     speed = rospy.get_param("~speed", 0.5)
@@ -141,53 +139,35 @@ if __name__=="__main__":
 
     pub_thread = PublishThread(repeat)
 
+
+    listOfPath = main()
+    rate = rospy.Rate(10)
     x = 0
     y = 0
     z = 0
     th = 0
     status = 0
 
+    loop = True
     try:
         pub_thread.wait_for_subscribers()
         pub_thread.update(x, y, z, th, speed, turn)
 
+
         print(vels(speed,turn))
         
-        key = 'w'
+        count = 0
+        key = ['l']
         x = moveBindings[key][0]
         y = moveBindings[key][1]
         z = moveBindings[key][2]
         th = moveBindings[key][3]
-        pub_thread.update(x, y, z, th, speed, turn)
-        # while(1):
-        #     key = getKey(key_timeout)
-        #     if key in moveBindings.keys():
-        #         x = moveBindings[key][0]
-        #         y = moveBindings[key][1]
-        #         z = moveBindings[key][2]
-        #         th = moveBindings[key][3]
-        #     elif key in speedBindings.keys():
-        #         speed = speed * speedBindings[key][0]
-        #         turn = turn * speedBindings[key][1]
-
-        #         print(vels(speed,turn))
-        #         if (status == 14):
-        #             print(msg)
-        #         status = (status + 1) % 15
-        #     else:
-        #         # Skip updating cmd_vel if key timeout and robot already
-        #         # stopped.
-        #         if key == '' and x == 0 and y == 0 and z == 0 and th == 0:
-        #             continue
-        #         x = 0
-        #         y = 0
-        #         z = 0
-        #         th = 0
-        #         if (key == '\x03'):
-        #             break
- 
-        #     pub_thread.update(x, y, z, th, speed, turn)
-
+            
+        while (loop):
+            rate.sleep()
+            pub_thread.update(x, y, z, th, speed, turn)
+            
+            
     except Exception as e:
         print(e)
 
